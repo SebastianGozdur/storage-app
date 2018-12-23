@@ -7,13 +7,13 @@ var port = process.env.PORT || '3000';
 var mysql = require("mysql");
 //Database connection
 app.use(function(req, res, next){
-    global.connection = mysql.createConnection({
+    res.locals.connection = mysql.createConnection({
         host     : 'localhost',
         user     : 'root',
         password : 'password',
         database : 'webdevproject'
     });
-    connection.connect();
+    res.locals.connection.connect();
     next();
 });
 app.use('/api/v1', v1);
