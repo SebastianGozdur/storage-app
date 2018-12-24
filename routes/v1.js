@@ -1,12 +1,50 @@
 var express = require('express');
 var router = express.Router();
+var Users = require('../services/users');
+var Items = require('../services/items');
 
-/* GET users listing. */
 router.get('/users', function(req, res, next) {
-    res.locals.connection.query('SELECT * from users', function (error, results, fields) {
-        if (error) throw error;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    Users.getAllUsers(function(error, results) {
+        if(error) {
+            res.send(error);
+        } else {
+            res.send(results);
+        }
     });
+});
+
+router.get('/users/:id', function(req, res, next) {
+    if(req.params.id) {
+        Users.getUserById(req.params.id, function(error, results) {
+            if(error) {
+                res.send(error);
+            } else {
+                res.send(results);
+            }
+        });
+    }
+});
+
+router.get('/items', function(req, res, next) {
+    Items.getAllUItems(function (error, results) {
+        if(error) {
+            res.send(error);
+        } else {
+            res.send(results);
+        }
+    });
+});
+
+router.get('/items/:id', function(req, res, next) {
+    if(req.params.id) {
+        Items.getItemById(req.params.id, function (error, results) {
+           if(error) {
+               res.send(error);
+           } else {
+               res.send(results);
+           }
+        });
+    }
 });
 
 module.exports = router;

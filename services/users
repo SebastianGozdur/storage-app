@@ -1,0 +1,18 @@
+var express = require('express');
+var connection = require('../db/config');
+
+var Users = {
+    getAllUsers: function (callback) {
+        return connection.query("SELECT * FROM users", callback);
+    },
+
+    getUserById: function(id, callback) {
+        return connection.query("SELECT * FROM users WHERE Id=?", [id], callback);
+    },
+
+    getUserByEmail: function(email, callback) {
+        return connection.query("SELECT * FROM users WHERE Email=?", [email], callback);
+    }
+};
+
+module.exports = Users;
