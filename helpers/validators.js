@@ -1,6 +1,5 @@
 var Validators = {
     isItemValid: function(item) {
-        console.log(item);
         if(item.name == null) {
             return false;
         } else if(item.quantity == null || item.quantity == 0) {

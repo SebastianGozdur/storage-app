@@ -45,7 +45,7 @@ router.post('/items/add', function (req, res, next) {
    });
 });
 
-router.delete('/items/remove/:id', function (req, res, next) {
+router.delete('/items/:id/remove', function (req, res, next) {
     if(req.params.id) {
         Items.removeItem(req.params.id, function (error, results) {
             if(error) {
@@ -59,7 +59,10 @@ router.delete('/items/remove/:id', function (req, res, next) {
     }
 });
 
-router.put('/itens/update/:id', function(req, res, next) {
+router.put('/items/:id/update', function(req, res, next) {
+    if(!Validators.isItemValid(req.body)) {
+        return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
+    }
    if(req.params.id) {
        Items.updateAllFieldInItem(req.params.id, req.body, function(error, results) {
            if(error) {
@@ -73,7 +76,7 @@ router.put('/itens/update/:id', function(req, res, next) {
    }
 });
 
-router.put('/itens/update/name/:id', function(req, res, next) {
+router.put('/items/:id/update/name', function(req, res, next) {
     if(req.params.id) {
         Items.updateItemName(req.params.id, req.body, function(error, results) {
             if(error) {
@@ -87,5 +90,38 @@ router.put('/itens/update/name/:id', function(req, res, next) {
     }
 });
 
+router.put('/items/:id/update/quantity', function(req, res, next) {
+    if(!Validators.isItemValid(req.body)) {
+        return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
+    }
+    if(req.params.id) {
+        Items.updateItemName(req.params.id, req.body, function(error, results) {
+            if(error) {
+                res.status(Utils.INTERNAL_SERVER_ERROR).send(error);
+            } else {
+                res.status(Utils.OK_GET).send(results);
+            }
+        });
+    } else {
+        res.status(Utils.BAD_REQUEST).send("WRONG REQUEST - CHECK ALL THE FIELDS");
+    }
+});
+
+router.put('/items/:id/update/related_price', function(req, res, next) {
+    if(!Validators.isItemValid(req.body)) {
+        return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
+    }
+    if(req.params.id) {
+        Items.updateItemName(req.params.id, req.body, function(error, results) {
+            if(error) {
+                res.status(Utils.INTERNAL_SERVER_ERROR).send(error);
+            } else {
+                res.status(Utils.OK_GET).send(results);
+            }
+        });
+    } else {
+        res.status(Utils.BAD_REQUEST).send("WRONG REQUEST - CHECK ALL THE FIELDS");
+    }
+});
 
 module.exports = router;
