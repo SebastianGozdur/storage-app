@@ -8,6 +8,27 @@ var Validators = {
             return false;
         }
         return true;
+    },
+
+    isNameValid: function(item) {
+        if(item.name == null) {
+            return false;
+        }
+        return true;
+    },
+
+    isQuantityValid: function(item) {
+        if(item.quantity == null) {
+            return false;
+        }
+        return true;
+    },
+
+    isRelatedPriceValid: function(item) {
+        if(item.related_price == null) {
+            return false;
+        }
+        return true;
     }
 };
 
