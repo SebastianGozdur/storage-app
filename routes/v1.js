@@ -77,6 +77,10 @@ router.put('/items/:id/update', function(req, res, next) {
 });
 
 router.put('/items/:id/update/name', function(req, res, next) {
+    if(!Validators.isNameValid(req.body)) {
+        return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
+    }
+
     if(req.params.id) {
         Items.updateItemName(req.params.id, req.body, function(error, results) {
             if(error) {
@@ -91,11 +95,11 @@ router.put('/items/:id/update/name', function(req, res, next) {
 });
 
 router.put('/items/:id/update/quantity', function(req, res, next) {
-    if(!Validators.isItemValid(req.body)) {
+    if(!Validators.isQuantityValid(req.body)) {
         return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
     }
     if(req.params.id) {
-        Items.updateItemName(req.params.id, req.body, function(error, results) {
+        Items.updateItemQuantity(req.params.id, req.body, function(error, results) {
             if(error) {
                 res.status(Utils.INTERNAL_SERVER_ERROR).send(error);
             } else {
@@ -108,11 +112,11 @@ router.put('/items/:id/update/quantity', function(req, res, next) {
 });
 
 router.put('/items/:id/update/related_price', function(req, res, next) {
-    if(!Validators.isItemValid(req.body)) {
+    if(!Validators.isRelatedPriceValid(req.body)) {
         return res.status(Utils.BAD_REQUEST).send('WRONG FORMAT');
     }
     if(req.params.id) {
-        Items.updateItemName(req.params.id, req.body, function(error, results) {
+        Items.updateItemRelatedPrice(req.params.id, req.body, function(error, results) {
             if(error) {
                 res.status(Utils.INTERNAL_SERVER_ERROR).send(error);
             } else {

@@ -27,7 +27,7 @@ var Items = {
     },
 
     updateItemQuantity : function(id, item, callback) {
-        return connection.query("UPDATE items SET quanttiy = ? WHERE Id = ?", [item.quantity, id], callback);
+        return connection.query("UPDATE items SET quantity = ? WHERE Id = ?", [item.quantity, id], callback);
     },
 
     updateItemRelatedPrice : function(id, item, callback) {
